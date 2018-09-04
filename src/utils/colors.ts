@@ -1,0 +1,25 @@
+export type Color = { hex: string, text: 'light'|'dark', index: number};
+
+export const colors: Color[] = [
+  {hex: '#ffffff', text: 'dark'},
+  {hex: '#000000', text: 'light'},
+  {hex: '#E53935', text: 'light'},
+  {hex: '#D81B60', text: 'light'},
+  {hex: '#8E24AA', text: 'light'},
+  {hex: '#5E35B1', text: 'light'},
+  {hex: '#3949AB', text: 'light'},
+  {hex: '#1E88E5', text: 'light'},
+  {hex: '#039BE5', text: 'dark'},
+  {hex: '#00ACC1', text: 'dark'},
+  {hex: '#00897B', text: 'light'},
+  {hex: '#43A047', text: 'light'},
+  {hex: '#7CB342', text: 'dark'},
+  {hex: '#C0CA33', text: 'dark'},
+  {hex: '#FDD835', text: 'dark'},
+  {hex: '#FFB300', text: 'dark'},
+  {hex: '#FB8C00', text: 'dark'},
+  {hex: '#F4511E', text: 'light'},
+  {hex: '#6D4C41', text: 'light'},
+  {hex: '#757575', text: 'light'},
+  {hex: '#546E7A', text: 'light'},
+].map(({hex, text}, index) => ({hex, text, index} as any));
