@@ -6,56 +6,73 @@ import Vue from 'vue';
 import VueMaterial from 'vue-material'
 import Router from 'vue-router';
 import VueMobx from 'vue-mobx';
-import { observable, isObservable, toJS } from 'mobx';
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default-dark.css';
+import {isObservable, observable, toJS} from 'mobx';
+import moment from 'moment';
+import sprintf from 'sprintf';
+import App from './general/app/app.vue';
+import 'vue-material/dist/vue-material.min.css';
 
-import { mixins as lem } from "./utils/mixins";
+import {mixins as lem} from "./utils/mixins";
 
+Vue.filter('truncateNumber', (numb: number, digits = 0) => {
+  return Math.floor(numb * Math.pow(10, digits)) / Math.pow(10, digits);
+});
+Vue.filter('fromSatoshi', (numb: number) => {
+  return numb / 1e8;
+});
+
+Vue.filter('decimalZeroPad', (numb: number, howMany: number) => {
+  return sprintf.sprintf(`%.0${howMany}f`, numb);
+})
+Vue.filter('timestampRelative', (timestamp: number) => {
+  return moment.utc(new Date(Date.UTC(2016, 4, 24, 17, 0, 0, 0))).add(timestamp, 'seconds')
+    .fromNow();
+});
 Vue.mixin({
   data: () => ({lem})
 });
 Vue.use(VueMaterial)
 Vue.use(VueMobx, {
-    toJS,
-    isObservable,
-    observable
+  toJS,
+  isObservable,
+  observable
 });
 
 const env = process.env.NODE_ENV || 'development';
 
 if (env !== 'development') {
-    Vue.config.devtools = false;
-    Vue.config.productionTip = false;
+  Vue.config.devtools = false;
+  Vue.config.productionTip = false;
 }
 
 
 Vue.use(Router);
 
 // dynamic import for on-demand loaded chunk
-const App = (r: any) => require.ensure([], () => r(require('./general/app/index.vue')), 'app1');
-const Info = (r: any) => require.ensure([], () => r(require('@components/info/index.vue')), 'info');
+const Home = (r: any) => require.ensure([], () => r(require('./components/home/home.vue')), 'home');
+const Compose = (r: any) => require.ensure([], () => r(require('./components/compose/compose.vue')), 'compose');
 
-const Outer = { template: '<router-view></router-view>' };
+
 
 const router = new Router({
-    mode: 'history',
-    routes: [
-        {
-            path: '/',
-            component: Outer,
-            children: [
-                { path: '', component: App },
-                { path: 'info', component: Info },
-            ],
-        },
-    ],
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      component: App,
+      children: [
+        {path: '', component: Home},
+        {path: '/compose', component: Compose},
+      ],
+    },
+  ],
 });
 
 
 const app = new Vue({
-    router,
-    ...Outer,
+  router,
+  template: `<router-view></router-view>`
+
 });
 
 app.$mount('#app');

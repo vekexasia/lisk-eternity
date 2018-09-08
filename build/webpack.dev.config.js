@@ -22,7 +22,7 @@ module.exports = merge(baseWebpackConfig, {
     module: {
         rules: [
             {
-                test: /\.(less|css)$/,
+                test: /\.(css|scss)$/,
                 type: 'javascript/auto',
                 use: ['happypack/loader?id=css']
             }
@@ -73,6 +73,7 @@ module.exports = merge(baseWebpackConfig, {
             modules: false
         },
         contentBase: config[env].contentBase,
-        publicPath: config[env].assetsPublicPath
+        publicPath: config[env].assetsPublicPath,
+        https: true
     }
 });

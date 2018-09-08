@@ -1,12 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
-const HappyPack = require('happypack');   
+const HappyPack = require('happypack');
 
 const getHappyPackConfig = require('./build/happypack');
 const pkg = require('./package.json');
 let dependencies = Object.keys(pkg['dependencies']);
 
 dependencies = dependencies.map(item => {
+    console.log(item);
     if (item === 'vue') {
         return 'vue/dist/vue.esm.js';
     }
@@ -52,7 +53,7 @@ const dllConfig = {
                 query: {
                     cacheDirectory: true
                 }
-            }] 
+            }]
         }))
     ]
 };

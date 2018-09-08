@@ -1,5 +1,3 @@
-const startingCode = ('!').charCodeAt(0);
-
 export class Data {
   public color: number = 0;
   public textSize: 'normal' | 'small' | 'big' | 'huge' = 'normal';
@@ -52,8 +50,7 @@ export class Data {
     const encodedData = fees % 1e5;
     const version = encodedData % 4;
     const textSizeCode = (encodedData >> 4) % (1 << 4) as any;
-    const color = (encodedData >> 8) % (1 << 4);
-
+    const color = (encodedData >> 8) % (1 << 5);
     return new Data({
       textSize: this.textSizeFromCode(textSizeCode),
       version,
@@ -63,8 +60,9 @@ export class Data {
   }
 }
 
-const testo = 'small text';
-const encoded = new Data({color: 14, textSize: 'small', text: testo}).calcPrice();
+// console.log(colors[16]);
+const testo = 'This BIG message is supar dupar secret YAH!';
+const encoded = new Data({color: 16, textSize: 'big', text: testo}).calcPrice();
 console.log(JSON.stringify(encoded));
 console.log(Data.decode(testo, encoded));
 console.log(Data.decode(testo, encoded).calcPrice());

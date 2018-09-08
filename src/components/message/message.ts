@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import {Tx} from "../../types/txwthassets";
 import {Data} from "../../utils/Data";
+import {mixins} from "../../utils/mixins";
+import {blockchain, price} from "../../network";
 
 
 @Component({
@@ -14,15 +16,23 @@ export default class Message extends Vue {
   private tx!: Tx;
   private data: Data|null = null;
 
-  mounted() {
+  private usdPrice: number|null = null;
+  private delegate: string|null = null;
+
+  async mounted() {
     if (!this.isValid()) {
       return;
     }
     this.data = Data.decode(this.tx.asset.data, parseInt(this.tx.amount, 10));
-    console.log('ciao');
+    const p = await price.getPrice();
+
+    this.usdPrice = p.usd * mixins.toSatoshi(parseInt(this.tx.amount, 10) + parseInt(this.tx.fee, 10))
+    const block = await blockchain.getBlock(this.tx.blockId);
+    const delegate = await blockchain.getDelegate(block.generatorPublicKey);
+    this.delegate = delegate.username;
   }
 
   isValid() {
-    return this.tx.asset && typeof (this.tx.asset.data) === 'string';
+    return mixins.isValidMessage(this.tx);
   }
 }

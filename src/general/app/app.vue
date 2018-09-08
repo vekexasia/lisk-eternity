@@ -10,28 +10,31 @@
                 </g>
             </svg>
             <span style="line-height: 40px;display:block; float:left; margin-left: 16px; margin-top: 9px;">Eternity Wall</span></h1>
-        <div style="clear:both"></div>
-        <home/>
+        <div style="clear:both; margin-bottom: 32px;"></div>
+        <router-view></router-view>
 
-        <router-link to="/info">Info</router-link>
+        <md-button class="md-fab md-primary md-theme-light fab">
+            <router-link to="/compose">
+                <md-icon>edit</md-icon>
+            </router-link>
+        </md-button>
     </div>
 </template>
+<style lang="scss">
+    @import "../../themes/themes.scss";
 
-<script lang="ts">
-    import './index.less';
-
-    import Home from '@components/home/home.vue';
-
-    export default {
-        data() {
-            return {
-                title: 'vuejs 2 + webpack 3'
-            };
-        },
-        components: {
-            Home
-        }
+    .main-content {
+        padding: 16px;
+        margin: 0px auto;
+        max-width: 600px;
+        margin-bottom: 60px;
     }
-</script>
 
-<style></style>
+    .fab {
+        position: fixed;
+        right: 10px;
+        bottom: 20px;
+    }
+
+</style>
+<script lang="ts" src="./app.ts"></script>

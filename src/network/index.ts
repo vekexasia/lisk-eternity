@@ -1,61 +1,43 @@
 import axios from 'axios';
+import {Block} from "../types/block";
+import {Delegate} from "../types/delegate";
 
+const cache = {};
+const promises = {};
+async function cachedAtomicGETRequest(url: string) {
+  if (cache[url]) {
+    return cache[url];
+  }
 
-const instance = axios.create({
-    baseURL: (window as any).PREFIX,
-    // withCredentials: true,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    responseType: 'json',
-    validateStatus(status) {
-        return status >= 200 && status < 500;
-    },
-});
-
-export interface Params {
-    url: string,
-    data?: any
+  if (promises[url]) {
+    return promises[url];
+  }
+  promises[url] = axios.get(url).then((r) => r.data);
+  return promises[url];
 }
 
-export default {
-    get(obj: Params) {
-        return Promise.resolve(
-            instance.get(obj.url, {
-                params: obj.data ? obj.data : { },
-            }),
-        )
-    },
+export const price = {
+  async getPrice(): Promise<{btc: number, usd: number}> {
+    const [r] = await cachedAtomicGETRequest('https://api.coinmarketcap.com/v1/ticker/lisk/');
+    console.log(r);
+    return {
+      btc: parseFloat(r.price_btc),
+      usd: parseFloat(r.price_usd)
+    };
+  }
+};
 
-    post(obj: Params) {
-        return Promise.resolve(
-            instance.post(obj.url, {
-                data: obj.data ? obj.data : {},
-            }),
-        )
-    },
+export const blockchain = {
+  async getBlock(id: string): Promise<Block> {
+    const {data} = await cachedAtomicGETRequest(`https://testnet.lisk.io/api/blocks/?blockId=${id}`);
 
-    delete(obj: Params) {
-        return Promise.resolve(
-            instance.delete(obj.url, {
-                data: obj.data ? obj.data : {},
-            }),
-        )
-    },
+    const [block] = data;
+    return block;
+  },
 
-    put(obj: Params) {
-        return Promise.resolve(
-            instance.put(obj.url, {
-                data: obj.data ? obj.data : {},
-            }),
-        )
-    },
-
-    patch(obj: Params) {
-        return Promise.resolve(
-            instance.patch(obj.url, {
-                data: obj.data ? obj.data : {},
-            }),
-        )
-    },
+  async getDelegate(pubKey: string): Promise<Delegate> {
+    const {data} = await cachedAtomicGETRequest(`https://testnet.lisk.io/api/delegates?publicKey=${pubKey}`);
+    const [delegate] = data;
+    return delegate;
+  }
 };

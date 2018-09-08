@@ -1,0 +1,19 @@
+@import "~vue-material/dist/theme/engine";
+
+$light: (
+        primary: md-get-palette-color(indigo, A200),
+        accent: md-get-palette-color(red, A200),
+        theme: light
+);
+
+$dark: (
+        primary: md-get-palette-color(indigo, A200),
+        accent: md-get-palette-color(red, A200),
+        theme: dark
+);
+
+@include md-register-theme("dark", $dark);
+@include md-register-theme("light", $light);
+@include md-register-theme("default", $light);
+
+@import "~vue-material/dist/theme/all";

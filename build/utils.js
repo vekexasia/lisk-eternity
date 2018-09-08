@@ -35,14 +35,14 @@ function extractCSS (opts) {
         }
     };
 
-    const lessLoader = {
-        [loaderKey]: 'less-loader',
+    const sassLoader = {
+        [loaderKey]: 'sass-loader',
         [optionsKey]: {
             sourceMap: env === 'development'
         }
     };
 
-    const loaders = [cssLoader, postcssLoader, lessLoader];
+    const loaders = [cssLoader, postcssLoader, sassLoader];
 
     if (env === 'development') {
         return ['vue-style-loader'].concat(loaders);
