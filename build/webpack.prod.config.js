@@ -22,7 +22,7 @@ module.exports = merge(baseWebpackConfig, {
     module: {
         rules: [
             {
-                test: /\.(less|css)$/,
+                test: /\.(scss|css)$/,
                 type: 'javascript/auto',
                 loaders: [
                     MiniCssExtractPlugin.loader,
@@ -82,7 +82,7 @@ module.exports = merge(baseWebpackConfig, {
         new CompressionPlugin({
             asset: '[path].gz[query]',
             algorithm: 'gzip',
-            test: /\.(js|html|less|css)$/,
+            test: /\.(js|html|scss|css)$/,
             threshold: 10240,
             minRatio: 0.8
         }),
@@ -103,8 +103,8 @@ module.exports = merge(baseWebpackConfig, {
         }),
 
         new WebpackMd5Hash(),
-        new WebpackInlineManifestPlugin({
-            name: 'webpackManifest'
-        })
+        // new WebpackInlineManifestPlugin({
+        //     name: 'webpackManifest'
+        // })
     ]
 });

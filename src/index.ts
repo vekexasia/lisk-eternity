@@ -50,7 +50,8 @@ Vue.use(Router);
 
 // dynamic import for on-demand loaded chunk
 const Home = (r: any) => require.ensure([], () => r(require('./components/home/home.vue')), 'home');
-const Compose = (r: any) => require.ensure([], () => r(require('./components/compose/compose.vue')), 'compose');
+const Faqs = (r: any) => require.ensure([], () => r(require('./components/faqs/faqs.vue')), 'faqs');
+// const Compose = (r: any) => require.ensure([], () => r(require('./components/compose/compose.vue')), 'compose');
 
 
 
@@ -62,7 +63,7 @@ const router = new Router({
       component: App,
       children: [
         {path: '', component: Home},
-        {path: '/compose', component: Compose},
+        {path: '/faqs', component: Faqs},
       ],
     },
   ],

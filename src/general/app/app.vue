@@ -13,11 +13,11 @@
         <div style="clear:both; margin-bottom: 32px;"></div>
         <router-view></router-view>
 
-        <md-button class="md-fab md-primary md-theme-light fab">
-            <router-link to="/compose">
-                <md-icon>edit</md-icon>
-            </router-link>
-        </md-button>
+        <!--<md-button class="md-fab md-primary md-theme-light fab">-->
+            <!--<router-link to="/compose">-->
+                <!--<md-icon>edit</md-icon>-->
+            <!--</router-link>-->
+        <!--</md-button>-->
     </div>
 </template>
 <style lang="scss">

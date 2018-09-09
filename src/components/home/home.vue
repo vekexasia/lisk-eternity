@@ -1,7 +1,8 @@
 <template>
     <div>
         <compose></compose>
-        <message v-for="tx in txs" :tx="tx"></message>
+        <md-divider style="margin: 16px 0px;"></md-divider>
+        <message v-for="tx in txs" :tx="tx" :key="tx.id"></message>
     </div>
 
 </template>

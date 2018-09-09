@@ -1,5 +1,5 @@
 <template>
-    <md-card class="message" :md-theme="lem.getTheme(data.color)" v-if="isValid()">
+    <md-card class="message" :md-theme="lem.getTheme(data.color)" v-if="isValid() && isRenderable()">
         <md-card-header>
             <md-avatar>
                 <img :src="`https://avatar.lisk.ws/${tx.senderId}.svg`" alt="Avatar">

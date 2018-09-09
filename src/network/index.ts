@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {Block} from "../types/block";
+import {constants} from "../utils/constants";
 import {Delegate} from "../types/delegate";
 
 const cache = {};
@@ -19,7 +20,6 @@ async function cachedAtomicGETRequest(url: string) {
 export const price = {
   async getPrice(): Promise<{btc: number, usd: number}> {
     const [r] = await cachedAtomicGETRequest('https://api.coinmarketcap.com/v1/ticker/lisk/');
-    console.log(r);
     return {
       btc: parseFloat(r.price_btc),
       usd: parseFloat(r.price_usd)
@@ -29,14 +29,14 @@ export const price = {
 
 export const blockchain = {
   async getBlock(id: string): Promise<Block> {
-    const {data} = await cachedAtomicGETRequest(`https://testnet.lisk.io/api/blocks/?blockId=${id}`);
+    const {data} = await cachedAtomicGETRequest(`${constants.node}/api/blocks/?blockId=${id}`);
 
     const [block] = data;
     return block;
   },
 
   async getDelegate(pubKey: string): Promise<Delegate> {
-    const {data} = await cachedAtomicGETRequest(`https://testnet.lisk.io/api/delegates?publicKey=${pubKey}`);
+    const {data} = await cachedAtomicGETRequest(`${constants.node}/api/delegates?publicKey=${pubKey}`);
     const [delegate] = data;
     return delegate;
   }

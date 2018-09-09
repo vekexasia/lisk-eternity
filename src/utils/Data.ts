@@ -38,7 +38,6 @@ export class Data {
   public calcPrice() {
     return 1e7 +
       (new Buffer(this.text, 'utf8').length * 1e5) *
-      (this.textSizeCode() + 1) *
       (this.color > 1 ? 4 : 1) + (
         this.version +
         (this.textSizeCode() << 4) +
@@ -59,10 +58,3 @@ export class Data {
     });
   }
 }
-
-// console.log(colors[16]);
-const testo = 'This BIG message is supar dupar secret YAH!';
-const encoded = new Data({color: 16, textSize: 'big', text: testo}).calcPrice();
-console.log(JSON.stringify(encoded));
-console.log(Data.decode(testo, encoded));
-console.log(Data.decode(testo, encoded).calcPrice());

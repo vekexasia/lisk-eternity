@@ -35,4 +35,8 @@ export default class Message extends Vue {
   isValid() {
     return mixins.isValidMessage(this.tx);
   }
+
+  isRenderable() {
+    return this.data !== null;
+  }
 }

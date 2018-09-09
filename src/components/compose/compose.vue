@@ -2,12 +2,17 @@
     <div>
         <md-steppers :md-active-step.sync="active">
             <md-step id="text" md-label="Text" :md-done="text != ''">
+
                 <md-field>
                     <md-input v-model="text" md-counter="64"></md-input>
                 </md-field>
-                <md-button class="continue-btn md-raised md-primary" @click="setDone('text', 'textSize')">Continue</md-button>
+                <div class="step_footer">
+                    <div class="fees" ><strong>Fees</strong>: {{fees | fromSatoshi | decimalZeroPad(8)}}</div>
+                    <md-button class="continue-btn md-raised md-primary" @click="setDone('text', 'textSize')">Continue</md-button>
+                </div>
             </md-step>
             <md-step id="textSize" md-label="Size" :md-done="!!textSize">
+
                 <div>
                     <md-radio v-model="textSize" value="small" class="small-message">{{text || 'message'}}</md-radio>
                 </div>
@@ -20,7 +25,10 @@
                 <div>
                     <md-radio v-model="textSize" value="huge" class="huge-message">{{text || 'message'}}</md-radio>
                 </div>
-                <md-button class="continue-btn md-raised md-primary" @click="setDone('textSize', 'textColor')">Continue</md-button>
+                <div class="step_footer">
+                    <div class="fees" ><strong>Fees</strong>: {{fees | fromSatoshi | decimalZeroPad(8)}}</div>
+                    <md-button class="continue-btn md-raised md-primary" @click="setDone('textSize', 'textColor')">Continue</md-button>
+                </div>
             </md-step>
             <md-step id="textColor" md-label="Text Color" :md-done="!!textColor">
                 <div class="md-layout">
@@ -28,7 +36,10 @@
                         <md-radio v-model="textColor" :value="index" :style="{ color: color.hex }" :class="`${color.text} textColor`">msg</md-radio>
                     </div>
                 </div>
-                <md-button class="continue-btn md-raised md-primary" @click="setDone('textColor', 'confirmation')">Continue</md-button>
+                <div class="step_footer">
+                    <div class="fees" ><strong>Fees</strong>: {{fees | fromSatoshi | decimalZeroPad(8)}}</div>
+                    <md-button class="continue-btn md-raised md-primary" @click="setDone('textColor', 'confirmation')">Continue</md-button>
+                </div>
             </md-step>
             <md-step id="confirmation" md-label="Confirmation" :md-done="tx">
                 <h3>Oook! Create the following transaction</h3>
@@ -45,25 +56,37 @@
                     <span>{{fees | fromSatoshi | decimalZeroPad(8)}}</span>
                 </div>
                 <md-divider></md-divider>
-                <p>You can eventually use one of the following wallets:</p>
-                <div class="md-layout">
-                    <div class="md-layout-item md-size-33"><md-button class="md-raised" @click="goToHub()">Lisk Hub</md-button></div>
-                    <div class="md-layout-item md-size-33"><md-button style="text-align:center" class="md-raised" @click="goToNano()">Lisk Nano</md-button></div>
-                    <div class="md-layout-item md-size-33"><md-button style="float:right" class="md-raised md-primary" @click="startLedgerProcess()">Ledger Nano</md-button></div>
+                <div style="margin: 16px 0;">
+                    <p>You can eventually use one of the following wallets:</p>
+                    <div class="md-layout">
+                        <div class="md-layout-item md-size-33"><md-button class="md-raised" @click="goToHub()">Lisk Hub</md-button></div>
+                        <div class="md-layout-item md-size-33" style="text-align:center"><md-button  class="md-raised" @click="goToNano()">Lisk Nano</md-button></div>
+                        <div class="md-layout-item md-size-33"><md-button style="float:right" class="md-raised md-primary" @click="startLedgerProcess()">Ledger Nano</md-button></div>
+                    </div>
                 </div>
+                <md-divider></md-divider>
+
             </md-step>
 
         </md-steppers>
         <md-snackbar md-position="center" :md-duration="4000" :md-active.sync="showLedgerSnackbar">
             <span>{{ledgerSnackbarText}}</span>
         </md-snackbar>
-        Fees: {{fees | fromSatoshi | decimalZeroPad(8)}}
+
     </div>
 </template>
 <style lang="scss">
-    .continue-btn {
-        float: right;
+    .step_footer {
+        .fees {
+            float:left;
+            margin-top: 36px;
+        }
+        .continue-btn {
+            margin-top: 16px;
+            float: right;
+        }
     }
+
     .conf-item {
         * {
             margin-left:0px;

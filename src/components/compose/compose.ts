@@ -3,17 +3,16 @@ import Component from 'vue-class-component';
 import {Data} from "../../utils/Data";
 import {colors} from "../../utils/colors";
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
-import {DposLedger, LedgerAccount} from 'dpos-ledger-api';
+import {DposLedger, LedgerAccount, SupportedCoin} from 'dpos-ledger-api';
 import lisk from 'lisk-elements';
 import {constants} from "../../utils/constants";
 import moment from 'moment';
-console.log(lisk.transaction.utils);
 @Component({
   name: 'compose',
   props: {
     tx: Object
   }
-})
+} as any)
 export default class Compose extends Vue {
   private textSize: string = 'normal';
   private textColor: number = 0;
@@ -37,6 +36,11 @@ export default class Compose extends Vue {
   goToNano() {
     window.open(`lisk://main/transactions/send?recipient=${constants.liskAddress}&amount=${this.fees / 1e8}`);
   }
+
+  goToHub() {
+    window.open(`lisk://wallet?recipient=${constants.liskAddress}&amount=${this.fees / 1e8}`);
+  }
+
   async startLedgerProcess() {
     const transport = await TransportU2F.create();
     const dposLedger = new DposLedger(transport);
@@ -45,7 +49,7 @@ export default class Compose extends Vue {
       if (coinID !== 'lisk') {
         throw new Error('Please open Lisk app on Ledger');
       }
-      const account = new LedgerAccount();
+      const account = new LedgerAccount().coinIndex(SupportedCoin.LISK).account(1);
       const {publicKey, address} = await dposLedger.getPubKey(account);
       const txOBJ: any = {
         senderId: address,
@@ -60,12 +64,11 @@ export default class Compose extends Vue {
         }
       };
       const bytes = lisk.transaction.utils.getTransactionBytes(txOBJ);
-      console.log(bytes, txOBJ);
       this.ledgerSnackbarText = `Check your Ledger Nano S!`;
       this.showLedgerSnackbar = true;
 
       const signature = await dposLedger.signTX(
-        new LedgerAccount(),
+        account,
         bytes
       );
 
@@ -77,13 +80,6 @@ export default class Compose extends Vue {
 
       this.ledgerSnackbarText = `Transaction Accepted!`;
       this.showLedgerSnackbar = true;
-      //
-      // tx.signature = signature.toString('hex');
-      // const obj = tx.toObj();
-      // obj.senderId = address;
-      // obj.amount = `${tx.amount}` as any;
-      // obj.fee = `${tx.fee}` as any;
-      // console.log(obj);
 
     } catch (e) {
       this.showLedgerSnackbar = false;
