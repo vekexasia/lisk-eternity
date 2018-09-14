@@ -48,12 +48,9 @@ if (env !== 'development') {
 
 Vue.use(Router);
 
-// dynamic import for on-demand loaded chunk
+
 const Home = (r: any) => require.ensure([], () => r(require('./components/home/home.vue')), 'home');
 const Faqs = (r: any) => require.ensure([], () => r(require('./components/faqs/faqs.vue')), 'faqs');
-// const Compose = (r: any) => require.ensure([], () => r(require('./components/compose/compose.vue')), 'compose');
-
-
 
 const router = new Router({
   mode: 'history',

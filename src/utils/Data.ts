@@ -38,7 +38,9 @@ export class Data {
   public calcPrice() {
     return 1e7 +
       (new Buffer(this.text, 'utf8').length * 1e5) *
-      (this.color > 1 ? 4 : 1) + (
+      (this.textSizeCode() + 1) *
+      (this.color > 1 ? 4 : 1) +
+      (
         this.version +
         (this.textSizeCode() << 4) +
         (this.color << 8)

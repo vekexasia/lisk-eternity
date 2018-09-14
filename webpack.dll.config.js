@@ -7,7 +7,6 @@ const pkg = require('./package.json');
 let dependencies = Object.keys(pkg['dependencies']);
 
 dependencies = dependencies.map(item => {
-    console.log(item);
     if (item === 'vue') {
         return 'vue/dist/vue.esm.js';
     }
@@ -28,9 +27,15 @@ const dllConfig = {
     module: {
         rules: [
             {
-                test: /\.js/,
+                type: 'javascript/auto',
+                test: /\.(json|html)/,
+                loader: 'happypack/loader?id=json'
+            },
+            {
+                test: /\.js$/,
                 loader: 'happypack/loader?id=js'
-            }
+            },
+
         ]
     },
     output: {
@@ -53,7 +58,16 @@ const dllConfig = {
                 query: {
                     cacheDirectory: true
                 }
-            }]
+            },
+            ]
+        })),
+        new HappyPack(getHappyPackConfig({
+            id: 'json',
+            loaders: [{
+                path: 'file-loader',
+                options: {name: '[name].[ext]'}
+            },
+            ]
         }))
     ]
 };
