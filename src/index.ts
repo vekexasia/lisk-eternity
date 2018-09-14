@@ -1,4 +1,5 @@
 // Promise polyfill for webpack2+: https://stackoverflow.com/questions/38960490/how-can-i-polyfill-promise-with-webpack
+declare const prefix: string;
 require('es6-promise').polyfill();
 import 'normalize.css';
 import 'babel-polyfill';
@@ -56,11 +57,11 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: prefix,
       component: App,
       children: [
-        {path: '', component: Home},
-        {path: '/faqs', component: Faqs},
+        {name: 'home', path: '', component: Home},
+        {name: 'faqs', path: 'faqs', component: Faqs},
       ],
     },
   ],

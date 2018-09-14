@@ -7,13 +7,13 @@ module.exports = {
         assetsSubDirectory: 'static',
         contentBase: path.resolve(__dirname, '../dist'),
         port: 3000,
-        prefix: ''
+        prefix: '/'
     },
     production: {
         assetsRoot: path.resolve(__dirname, '../dist'),
-        assetsPublicPath: '/',
+        assetsPublicPath: '/lisk-eternity/',
         assetsSubDirectory: 'static',
-        prefix: '',
+        prefix: '/lisk-eternity',
         productionSourceMap: false
     }
 };

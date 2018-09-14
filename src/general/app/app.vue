@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="main-content">
-        <router-link to="/" class="toplink">
+        <router-link :to="{ name: 'home' }" class="toplink">
             <h1>
                 <svg height="40" viewBox="0 0 349 137" xmlns="http://www.w3.org/2000/svg"
                      style="display:block; float:left;">
@@ -15,7 +15,7 @@
             </h1>
         </router-link>
         <div style="float:right; margin-top: 16px;">
-            <router-link to="/faqs"  class="toplink">
+            <router-link :to="{ name: 'faqs' }"  class="toplink">
                 <md-icon>help</md-icon>
             </router-link>
         </div>

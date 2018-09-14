@@ -8,7 +8,7 @@
     "prepush": "npm run ilint -q",
     "dll": "npx rimraf dist && npx webpack --config webpack.dll.config.js",
     "postinstall": "npm -s run dll",
-    "deploy": "npm run build; gh-pages -d dist",
+    "deploy": "npm run build; (date +'%Y-%m-%d %H:%M:%S' > dist/build.txt); gh-pages -d dist",
     "dev": "npx cross-env NODE_ENV=development node ./build/dev-server.js",
     "build": "npx rimraf dist && npx cross-env NODE_ENV=production npx webpack --config ./build/webpack.prod.config.js --progress --hide-modules",
     "ilint": "npx tslint -p ./tsconfig.json --type-check src/**/*.ts && npx eslint src/**/*.vue",

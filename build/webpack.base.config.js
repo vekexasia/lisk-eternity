@@ -129,6 +129,10 @@ module.exports = {
             tsconfig: '../tsconfig.json'
         }),
 
-        new ProgressBarPlugin()
+        new ProgressBarPlugin(),
+
+        new webpack.DefinePlugin({
+            'prefix': JSON.stringify(apiPrefix)
+        })
     ]
 };
