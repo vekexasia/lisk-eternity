@@ -1,4 +1,4 @@
-export type Tx = {
+export interface Tx {
   id: string;
   height: number,
   blockId: string,
@@ -14,8 +14,8 @@ export type Tx = {
   signatures: string[];
   confirmations: number,
   asset: {
-    data: string
+    data: string,
   }
 
-};
+}
 

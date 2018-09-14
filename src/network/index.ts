@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {Block} from "../types/block";
-import {constants} from "../utils/constants";
-import {Delegate} from "../types/delegate";
+import {Block} from '../types/block';
+import {constants} from '../utils/constants';
+import {Delegate} from '../types/delegate';
 
 const cache = {};
 const promises = {};
@@ -22,9 +22,9 @@ export const price = {
     const [r] = await cachedAtomicGETRequest('https://api.coinmarketcap.com/v1/ticker/lisk/');
     return {
       btc: parseFloat(r.price_btc),
-      usd: parseFloat(r.price_usd)
+      usd: parseFloat(r.price_usd),
     };
-  }
+  },
 };
 
 export const blockchain = {
@@ -39,5 +39,5 @@ export const blockchain = {
     const {data} = await cachedAtomicGETRequest(`${constants.node}/api/delegates?publicKey=${pubKey}`);
     const [delegate] = data;
     return delegate;
-  }
+  },
 };

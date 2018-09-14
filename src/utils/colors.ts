@@ -1,4 +1,4 @@
-export type Color = { hex: string, text: 'light'|'dark', index: number};
+export interface Color { hex: string, text: 'light'|'dark', index: number}
 
 export const colors: Color[] = [
   {hex: '#ffffff', text: 'dark'},

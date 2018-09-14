@@ -6,6 +6,6 @@ export const constants = {
   apiClient: lisk.APIClient.createMainnetAPIClient(),
   node ,
   socket: io(node),
-  liskAddress: '9735169894044482341L'
+  liskAddress: '9735169894044482341L',
 };
 
