@@ -27,6 +27,7 @@ export class Data {
       text: asset,
     });
   }
+
   public color: number = 0;
   public textSize: 'normal' | 'small' | 'big' | 'huge' = 'normal';
   public text: string = '';
@@ -51,10 +52,12 @@ export class Data {
   }
 
   public calcPrice() {
-    return 1e7 +
-      (new Buffer(this.text, 'utf8').length * 1e5) *
-      (this.textSizeCode() + 1) *
-      (this.color > 1 ? 4 : 1) +
+    return Math.pow(2, 16) *
+      (
+        new Buffer(this.text, 'utf8').length +
+        this.textSizeCode() * 2 +
+        Math.ceil(this.color / 2)
+      ) +
       (
         this.version +
         (this.textSizeCode() << 4) +

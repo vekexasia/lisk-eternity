@@ -1,10 +1,10 @@
 <template>
     <div>
-        <md-steppers :md-active-step.sync="active">
-            <md-step id="text" md-label="Text" :md-done="text != ''">
+        <md-steppers :md-active-step.sync="active" md-alternative>
+            <md-step id="text" md-label="Text" :md-done="text != ''" :md-error="text === '' ? 'Empty message': null">
 
                 <md-field>
-                    <md-input v-model="text" md-counter="64"></md-input>
+                    <md-input v-model="text" md-counter="64" maxlength="64"></md-input>
                 </md-field>
                 <div class="step_footer">
                     <div class="fees" ><strong>Fees</strong>: {{fees | fromSatoshi | decimalZeroPad(8)}}</div>
@@ -30,7 +30,7 @@
                     <md-button class="continue-btn md-raised md-primary" @click="setDone('textSize', 'textColor')">Continue</md-button>
                 </div>
             </md-step>
-            <md-step id="textColor" md-label="Text Color" :md-done="!!textColor">
+            <md-step id="textColor" md-label="Color" :md-done="!!textColor">
                 <div class="md-layout">
                     <div class="md-layout-item md-size-25" v-for="(color, index) in colors">
                         <md-radio v-model="textColor" :value="index" :style="{ color: color.hex }" :class="`${color.text} textColor`">msg</md-radio>
@@ -41,14 +41,14 @@
                     <md-button class="continue-btn md-raised md-primary" @click="setDone('textColor', 'confirmation')">Continue</md-button>
                 </div>
             </md-step>
-            <md-step id="confirmation" md-label="Confirmation" :md-done="tx">
+            <md-step id="confirmation" md-label="Summary" :md-done="tx" :md-error="text===''?'':null">
                 <h3>Oook! Create the following transaction</h3>
                 <div class="conf-item">
                     <h4>Recipient</h4>
                     <span>{{constants.liskAddress}}</span>
                 </div>
-                <div class="conf-item">
-                    <h4>Message</h4>
+                <div class="conf-item"  :style="{ color: text===''?'red':null }">
+                    <h4>Reference <md-icon>help</md-icon> <md-tooltip>The 'reference' field needs to match the message here</md-tooltip></h4>
                     <span>{{text}}</span>
                 </div>
                 <div class="conf-item">
@@ -56,8 +56,11 @@
                     <span>{{fees | fromSatoshi | decimalZeroPad(8)}}</span>
                 </div>
                 <md-divider></md-divider>
+                <div style="margin: 16px 0px;">
+                    <p><strong>Important</strong>: Be sure all the fields in your wallet are matching the summary above! Failing in doing so might lead to lost funds or invalid messages that won't be shown here.</p>
+                </div>
                 <div style="margin: 16px 0;">
-                    <p>You can eventually use one of the following wallets:</p>
+                    <p>You can get some prepopulated fields by clicking the following btns:</p>
                     <div class="md-layout">
                         <div class="md-layout-item md-size-33"><md-button class="md-raised" @click="goToHub()">Lisk Hub</md-button></div>
                         <div class="md-layout-item md-size-33" style="text-align:center"><md-button  class="md-raised" @click="goToNano()">Lisk Nano</md-button></div>
@@ -76,6 +79,9 @@
     </div>
 </template>
 <style lang="scss">
+    .md-stepper-content {
+        overflow-x: hidden;
+    }
     .step_footer {
         .fees {
             float:left;

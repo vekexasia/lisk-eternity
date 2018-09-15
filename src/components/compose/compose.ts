@@ -49,7 +49,7 @@ export default class Compose extends Vue {
       if (coinID !== 'lisk') {
         throw new Error('Please open Lisk app on Ledger');
       }
-      const account = new LedgerAccount().coinIndex(SupportedCoin.LISK).account(1);
+      const account = new LedgerAccount().coinIndex(SupportedCoin.LISK).account(0);
       const {publicKey, address} = await dposLedger.getPubKey(account);
       const txOBJ: any = {
         senderId: address,

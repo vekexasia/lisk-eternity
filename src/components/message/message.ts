@@ -18,6 +18,7 @@ export default class Message extends Vue {
 
   private usdPrice: number|null = null;
   private delegate: string|null = null;
+  private userDelegate: string|null = null;
 
   async mounted() {
     if (!this.isValid()) {
@@ -29,6 +30,10 @@ export default class Message extends Vue {
     this.usdPrice = p.usd * mixins.toSatoshi(parseInt(this.tx.amount, 10) + parseInt(this.tx.fee, 10))
     const block = await blockchain.getBlock(this.tx.blockId);
     const delegate = await blockchain.getDelegate(block.generatorPublicKey);
+    const username = await blockchain.getDelegate(this.tx.senderPublicKey);
+    if (username) {
+      this.userDelegate = username.username;
+    }
     this.delegate = delegate.username;
   }
 

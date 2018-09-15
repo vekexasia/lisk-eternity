@@ -12,7 +12,7 @@
                 <small class="md-layout-item md-size-40"><md-icon>fingerprint<md-tooltip md-direction="bottom">Transaction ID</md-tooltip></md-icon> {{tx.id}}</small>
                 <small class="md-layout-item md-size-30"><md-icon>alarm<md-tooltip md-direction="bottom">Confirmation time</md-tooltip></md-icon> {{tx.timestamp | timestampRelative}}</small>
                 <small class="md-layout-item md-size-30"><md-icon>attach_money<md-tooltip md-direction="bottom">TX Price</md-tooltip></md-icon> {{usdPrice | truncateNumber(2)}}</small>
-                <small class="md-layout-item md-size-40"><md-icon>record_voice_over<md-tooltip md-direction="bottom">Sender Address</md-tooltip></md-icon> {{tx.senderId}}</small>
+                <small class="md-layout-item md-size-40"><md-icon>record_voice_over<md-tooltip md-direction="bottom">Sender</md-tooltip></md-icon> {{userDelegate || tx.senderId}}</small>
                 <small class="md-layout-item md-size-30"><md-icon>done_all<md-tooltip md-direction="bottom">Confirmations</md-tooltip></md-icon> {{tx.confirmations}}</small>
                 <small class="md-layout-item md-size-30"><md-icon>verified_user<md-tooltip md-direction="bottom">Block Producer</md-tooltip></md-icon> {{delegate}}</small>
             </div>
@@ -40,6 +40,11 @@
             font-size: 48px;
             line-height: 48px;
             margin-top: -18px;
+        }
+    }
+    .infos {
+        .md-icon {
+            margin-right: 4px;
         }
     }
     .infos small {

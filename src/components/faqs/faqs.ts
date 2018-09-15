@@ -25,11 +25,11 @@ export default class Faqs extends Vue {
     },
     {
       q: 'Can you go a bit more in depth on the amount encoding algorithm?',
-      a: 'Sure thing. Amount is: 1e7 + text.length * 1e5 * (color != black ? 4 : 1) + ( version + textCode * 2^4 + color * 2^8 )'
+      a: 'Sure thing. Amount is: 2^16 *(textLength + textSizeCode * 2 + ceil(textColor / 2)) + ( version + textCode * 2^4 + color * 2^8 )',
     },
     {
       q: 'Did you ensure some space to other features.',
-      a: 'Yes. There are about 5 other bits we can exploit using this encoding.'
+      a: 'Yes. There are about 5 other bits we can exploit using this encoding.',
     },
     {
       q: 'What happens if we need more?',
@@ -42,6 +42,6 @@ export default class Faqs extends Vue {
     {
       q: 'Why did you do this?',
       a: 'For fun',
-    }
+    },
   ];
 }
