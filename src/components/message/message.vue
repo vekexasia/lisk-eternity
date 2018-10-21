@@ -27,6 +27,7 @@
         font-size: 20px;
         display: block;
         margin-top: -7px;
+        word-break: break-word;
         &.text-small {
             font-size: 14px;
 
