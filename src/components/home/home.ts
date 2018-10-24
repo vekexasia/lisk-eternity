@@ -15,7 +15,6 @@ export default class Home extends Vue {
 
   public async mounted() {
     await this.loadAllTransactions();
-    console.log('mounted');
     constants.socket.on('blocks/change', (b: any) => this.parseBlock(b));
   }
 
@@ -40,22 +39,17 @@ export default class Home extends Vue {
         .filter((tx: any) => mixins.isValidMessage(tx))
         .filter((tx: any) => !this.txs.some((t) => t.id === tx.id))
       );
-      console.log('loaded', offset);
     } while (loaded < count);
     this.txs.sort((a, b) => b.timestamp - a.timestamp);
   }
 
   public async parseBlock(b: Block & { transactions?: Tx[] }) {
-    console.log('son qua', b.height);
-    console.log('parseBlock', b.transactions);
     if (b.transactions && b.transactions.length && b.transactions.some((tx) => mixins.isValidMessage(tx))) {
-      console.log('RELOADING');
       await this.loadAllTransactions();
     }
   }
 
   public beforeDestroy() {
-    console.log('beforeDestroy');
     constants.socket.off('blocks/change');
   }
 }

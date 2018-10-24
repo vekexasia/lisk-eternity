@@ -7,7 +7,7 @@
                     <md-input v-model="text" md-counter="64" maxlength="64"></md-input>
                 </md-field>
                 <div class="step_footer">
-                    <div class="fees" ><strong>Fees</strong>: {{fees | fromSatoshi | decimalZeroPad(8)}}</div>
+                    <div class="fees" ><strong>Fees <md-tooltip>Lisk Eternity Fees. Not to be confused with Lisk Network Fees</md-tooltip></strong>: {{fees | fromSatoshi | decimalZeroPad(8)}}</div>
                     <md-button class="continue-btn md-raised md-primary" @click="setDone('text', 'textSize')">Continue</md-button>
                 </div>
             </md-step>
@@ -100,17 +100,20 @@
             padding:0px;
         }
         h4 {
-            width: 50%;
+            width: 40%;
             display:inline-block;
         }
         span {
             display:inline-block;
-            width: 49%;
+            word-break: break-word;
+            width: 59%;
             text-align:right;
         }
     }
     .md-radio-label {
         height: auto ! important;
+        line-height: 100px;
+        word-break: break-word;
     }
     .md-radio.textColor {
         label {
@@ -125,6 +128,9 @@
     .big-message {
         font-size: 28px;
         line-height: 29px;
+        .md-radio-label {
+            line-height: 30px !important;
+        }
     }
     .huge-message {
         font-size: 48px;

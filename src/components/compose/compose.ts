@@ -1,17 +1,18 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Data} from "../../utils/Data";
-import {colors} from "../../utils/colors";
+import {Data} from '../../utils/Data';
+import {colors} from '../../utils/colors';
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import {DposLedger, LedgerAccount, SupportedCoin} from 'dpos-ledger-api';
 import lisk from 'lisk-elements';
-import {constants} from "../../utils/constants";
+import {constants} from '../../utils/constants';
 import moment from 'moment';
+
 @Component({
   name: 'compose',
   props: {
-    tx: Object
-  }
+    tx: Object,
+  },
 } as any)
 export default class Compose extends Vue {
   private textSize: string = 'normal';
@@ -23,25 +24,25 @@ export default class Compose extends Vue {
   private colors = colors;
   private constants = constants;
 
-  get fees() {
+  public get fees() {
     return new Data({textSize: this.textSize as any, text: this.text, color: this.textColor}).calcPrice();
   }
 
-  setDone(id: string, index: string) {
+  public setDone(id: string, index: string) {
     if (index) {
       this.active = index
     }
   }
 
-  goToNano() {
+  public goToNano() {
     window.open(`lisk://main/transactions/send?recipient=${constants.liskAddress}&amount=${this.fees / 1e8}`);
   }
 
-  goToHub() {
+  public goToHub() {
     window.open(`lisk://wallet?recipient=${constants.liskAddress}&amount=${this.fees / 1e8}`);
   }
 
-  async startLedgerProcess() {
+  public async startLedgerProcess() {
     const transport = await TransportU2F.create();
     const dposLedger = new DposLedger(transport);
     try {
@@ -60,8 +61,8 @@ export default class Compose extends Vue {
         amount: `${this.fees}`,
         timestamp: moment.utc().diff(lisk.constants.EPOCH_TIME, 'seconds') - 10,
         asset: {
-          data: this.text
-        }
+          data: this.text,
+        },
       };
       const bytes = lisk.transaction.utils.getTransactionBytes(txOBJ);
       this.ledgerSnackbarText = `Check your Ledger Nano S!`;

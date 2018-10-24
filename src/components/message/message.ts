@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import {Tx} from "../../types/txwthassets";
-import {Data} from "../../utils/Data";
-import {mixins} from "../../utils/mixins";
-import {blockchain, price} from "../../network";
+import {Tx} from '../../types/txwthassets';
+import {Data} from '../../utils/Data';
+import {mixins} from '../../utils/mixins';
+import {blockchain, price} from '../../network';
 
 
 @Component({
@@ -14,11 +14,11 @@ import {blockchain, price} from "../../network";
 })
 export default class Message extends Vue {
   private tx!: Tx;
-  private data: Data|null = null;
+  private data: Data | null = null;
 
-  private usdPrice: number|null = null;
-  private delegate: string|null = null;
-  private userDelegate: string|null = null;
+  private usdPrice: number | null = null;
+  private delegate: string | null = null;
+  private userDelegate: string | null = null;
 
   async mounted() {
     if (!this.isValid()) {
@@ -37,11 +37,11 @@ export default class Message extends Vue {
     this.delegate = delegate.username;
   }
 
-  isValid() {
+  public isValid() {
     return mixins.isValidMessage(this.tx);
   }
 
-  isRenderable() {
+  public isRenderable() {
     return this.data !== null;
   }
 }
