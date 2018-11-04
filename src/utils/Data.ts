@@ -63,7 +63,9 @@ export class Data {
   public calcPrice() {
     return Math.pow(2, 16) *
       (
-        0
+        new Buffer(this.text, 'utf8').length +
+        this.textSizeCode() * 2 +
+        Math.ceil(this.color / 2)
       ) +
       (
         this.version +
