@@ -19,6 +19,7 @@
     "async-await-error-handling": "^0.5.2",
     "axios": "^0.18.0",
     "dpos-ledger-api": "^1.1.0",
+    "dpos-offline": "^2.0.0",
     "lisk-elements": "^1.0.0",
     "mobx": "^4.0.1",
     "moment": "^2.22.2",

@@ -1750,6 +1750,13 @@ builtin-status-codes@^3.0.0:
   resolved "http://registry.npm.taobao.org/builtin-status-codes/download/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
   integrity sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=
 
+bytebuffer@^5.0.1:
+  version "5.0.1"
+  resolved "http://registry.npm.taobao.org/bytebuffer/download/bytebuffer-5.0.1.tgz#582eea4b1a873b6d020a48d58df85f0bba6cfddd"
+  integrity sha1-WC7qSxqHO20CCkjVjfhfC7ps/d0=
+  dependencies:
+    long "~3"
+
 bytes@3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/bytes/download/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
@@ -2905,6 +2912,19 @@ dpos-ledger-api@^1.1.0:
   dependencies:
     bip32-path "^0.4.2"
     crc "^3.5.0"
+
+dpos-offline@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/dpos-offline/download/dpos-offline-2.0.0.tgz#a68bbc8a93b59267edd61c90fe6796b77aa578d2"
+  integrity sha1-pou8ipO1kmft1hyQ/meWt3qleNI=
+  dependencies:
+    bytebuffer "^5.0.1"
+    is-empty "^1.2.0"
+    long "^4.0.0"
+    tweetnacl "^1.0.0"
+    tweetnacl-util "^0.15.0"
+    type-tagger "^1.0.0"
+    varuint-bitcoin "^1.1.0"
 
 duplexer2@0.0.2:
   version "0.0.2"
@@ -4523,6 +4543,11 @@ is-directory@^0.3.1:
   resolved "http://registry.npm.taobao.org/is-directory/download/is-directory-0.3.1.tgz#61339b6f2475fc772fd9c9d83f5c8575dc154ae1"
   integrity sha1-YTObbyR1/Hcv2cnYP1yFddwVSuE=
 
+is-empty@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/is-empty/download/is-empty-1.2.0.tgz#de9bb5b278738a05a0b09a57e1fb4d4a341a9f6b"
+  integrity sha1-3pu1snhzigWgsJpX4ftNSjQan2s=
+
 is-extendable@^0.1.0, is-extendable@^0.1.1:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/is-extendable/download/is-extendable-0.1.1.tgz#62b110e289a471418e3ec36a617d472e301dfc89"
@@ -5225,12 +5250,12 @@ loglevel@^1.4.1:
   resolved "http://registry.npm.taobao.org/loglevel/download/loglevel-1.6.1.tgz#e0fc95133b6ef276cdc8887cdaf24aa6f156f8fa"
   integrity sha1-4PyVEztu8nbNyIh82vJKpvFW+Po=
 
-long@4.0.0:
+long@4.0.0, long@^4.0.0:
   version "4.0.0"
   resolved "http://registry.npm.taobao.org/long/download/long-4.0.0.tgz#9a7b71cfb7d361a194ea555241c92f7468d5bf28"
   integrity sha1-mntxz7fTYaGU6lVSQckvdGjVvyg=
 
-long@^3.2.0:
+long@^3.2.0, long@~3:
   version "3.2.0"
   resolved "http://registry.npm.taobao.org/long/download/long-3.2.0.tgz#d821b7138ca1cb581c172990ef14db200b5c474b"
   integrity sha1-2CG3E4yhy1gcFymQ7xTbIAtcR0s=
@@ -8166,12 +8191,17 @@ tunnel-agent@^0.6.0:
   dependencies:
     safe-buffer "^5.0.1"
 
+tweetnacl-util@^0.15.0:
+  version "0.15.0"
+  resolved "http://registry.npm.taobao.org/tweetnacl-util/download/tweetnacl-util-0.15.0.tgz#4576c1cee5e2d63d207fee52f1ba02819480bc75"
+  integrity sha1-RXbBzuXi1j0gf+5S8boCgZSAvHU=
+
 tweetnacl@0.x.x, tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "http://registry.npm.taobao.org/tweetnacl/download/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
-tweetnacl@=1.0.0:
+tweetnacl@=1.0.0, tweetnacl@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/tweetnacl/download/tweetnacl-1.0.0.tgz#713d8b818da42068740bf68386d0479e66fc8a7b"
   integrity sha1-cT2LgY2kIGh0C/aDhtBHnmb8ins=
@@ -8190,6 +8220,11 @@ type-is@~1.6.15, type-is@~1.6.16:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.18"
+
+type-tagger@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/type-tagger/download/type-tagger-1.0.0.tgz#dc6297e52e17097c1b92b42c16816a18f631e7f4"
+  integrity sha1-3GKX5S4XCXwbkrQsFoFqGPYx5/Q=
 
 typedarray@^0.0.6:
   version "0.0.6"
@@ -8415,7 +8450,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-varuint-bitcoin@=1.1.0:
+varuint-bitcoin@=1.1.0, varuint-bitcoin@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/varuint-bitcoin/download/varuint-bitcoin-1.1.0.tgz#7a343f50537607af6a3059312b9782a170894540"
   integrity sha1-ejQ/UFN2B69qMFkxK5eCoXCJRUA=

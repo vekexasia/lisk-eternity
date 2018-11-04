@@ -4,9 +4,8 @@ import {Data} from '../../utils/Data';
 import {colors} from '../../utils/colors';
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import {DposLedger, LedgerAccount, SupportedCoin} from 'dpos-ledger-api';
-import lisk from 'lisk-elements';
+import {Lisk, RecipientId} from 'dpos-offline';
 import {constants} from '../../utils/constants';
-import moment from 'moment';
 
 @Component({
   name: 'compose',
@@ -51,33 +50,28 @@ export default class Compose extends Vue {
         throw new Error('Please open Lisk app on Ledger');
       }
       const account = new LedgerAccount().coinIndex(SupportedCoin.LISK).account(0);
-      const {publicKey, address} = await dposLedger.getPubKey(account);
-      const txOBJ: any = {
-        senderId: address,
-        senderPublicKey: publicKey,
-        recipientId: constants.liskAddress,
-        fee: `${lisk.transaction.constants.TRANSFER_FEE}`,
-        type: 0,
+      const {publicKey} = await dposLedger.getPubKey(account);
+
+      const tx = Lisk.txs.transform({
+        kind: 'send',
+        sender: { publicKey: Buffer.from(publicKey, 'hex') as any},
         amount: `${this.fees}`,
-        timestamp: moment.utc().diff(lisk.constants.EPOCH_TIME, 'seconds') - 10,
-        asset: {
-          data: this.text,
-        },
-      };
-      const bytes = lisk.transaction.utils.getTransactionBytes(txOBJ);
+        recipient: constants.liskAddress as RecipientId,
+        memo: this.text,
+      });
+
       this.ledgerSnackbarText = `Check your Ledger Nano S!`;
       this.showLedgerSnackbar = true;
 
       const signature = await dposLedger.signTX(
         account,
-        bytes
+        Lisk.txs.bytes(tx)
       );
+      tx.signature = signature as any;
 
-      txOBJ.signature = signature.toString('hex');
-      txOBJ.id = lisk.transaction.utils.getTransactionId(txOBJ);
       this.showLedgerSnackbar = false;
-
-      await constants.apiClient.transactions.broadcast(txOBJ);
+      await constants.apiClient.transactions
+        .broadcast(Lisk.txs.toPostable(tx));
 
       this.ledgerSnackbarText = `Transaction Accepted!`;
       this.showLedgerSnackbar = true;
